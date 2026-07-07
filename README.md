@@ -25,7 +25,6 @@ By combining **k-Anonymity**, **Local Differential Privacy (LDP)**, and **Utilit
 ├── style.css                      # Glassmorphism dark-themed Vanilla CSS styles
 ├── app.js                         # Client-side simulator, math models & UI logic
 ├── do_no_harm_assessment.md       # Formal Data Protection & Ethical Risk assessment (source)
-├── do_no_harm_assessment.pdf      # Same assessment, judge-ready 2-page PDF
 ├── presentation.html              # Interactive HTML Pitch Slide Deck for judges
 ├── LICENSE                        # MIT License
 ├── .gitignore
@@ -72,22 +71,6 @@ AegisAid includes Python scripts implementing the raw mathematical algorithms us
     This script verifies $k$-anonymity compliance, applies Laplace noise queries under varying Epsilon constraints, and solves utility-fairness resource allocation.
 
 ---
-
-## 📤 Publishing to GitHub (required deliverable)
-
-The hackathon requires a **public GitHub repository**. From this folder:
-
-```bash
-git init
-git add .
-git commit -m "AegisAid: Privacy-Safe Humanitarian Resource AI"
-git branch -M main
-git remote add origin https://github.com/<your-username>/aegisaid.git
-git push -u origin main
-```
-
-Then set the repo visibility to **Public** in GitHub Settings, and paste the
-repo URL into your hackathon submission form alongside this README.
 
 ## 📄 License
 
