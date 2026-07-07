@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisAid Pitch Presentation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1016;
+            --slide-bg: rgba(25, 28, 41, 0.7);
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Presentation Container */
+        .presentation-container {
+            width: 90%;
+            max-width: 1000px;
+            height: 600px;
+            position: relative;
+            background: linear-gradient(135deg, #171924 0%, #0f1016 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Slide Container */
+        .slides-wrapper {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(50px);
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        /* Slide Content Typography */
+        .slide-subtitle {
+            color: var(--primary);
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .slide-title {
+            font-family: var(--font-heading);
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(90deg, #ffffff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-text {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .highlight-text {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Grid layouts inside slides */
+        .slide-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .bullets-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .bullets-list li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+        }
+
+        .bullets-list li::before {
+            content: "🛡️";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 16px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        /* Slide Navigation Bar */
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(10, 11, 16, 0.5);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .slide-progress {
+            display: flex;
+            gap: 8px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .progress-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 10px;
+        }
+
+        /* Slide Specific Styles */
+        .slide-title-large {
+            font-size: 52px;
+            background: linear-gradient(90deg, #818cf8, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        
+        <div class="slides-wrapper">
+            
+            <!-- SLIDE 1 -->
+            <div class="slide active">
+                <span class="slide-subtitle">WiePrompt Hackathon Pitch</span>
+                <h2 class="slide-title slide-title-large">AegisAid</h2>
+                <h3 style="font-family: var(--font-heading); font-size: 24px; margin-bottom: 20px; color: var(--secondary);">
+                    Privacy-Safe Humanitarian Resource AI
+                </h3>
+                <p class="slide-text">
+                    Designing a resource allocation and anomaly detection system for 120,000 displaced individuals that is simultaneously <span class="highlight-text">mathematically secure</span> and structurally incapable of exposing identity.
+                </p>
+                <div style="font-size: 13px; color: var(--text-muted);">
+                    Use Left / Right arrow keys or click next to navigate.
+                </div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slide">
+                <span class="slide-subtitle">The Dilemma</span>
+                <h2 class="slide-title">The Danger of Humanitarian Data</h2>
+                <div class="slide-grid">
+                    <div>
+                        <p class="slide-text">
+                            Humanitarian aid demands needs assessment (food index, healthcare requirements, shelter conditions). However, databases represent high-value targets. 
+                        </p>
+                        <p class="slide-text" style="font-size: 16px;">
+                            A database breach can expose vulnerable refugees to <span class="highlight-text">exploitation, targeted deportation, or surveillance</span>.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--secondary); margin-bottom: 12px;">The Core Challenge</h4>
+                        <p style="font-size: 14px; line-height: 1.5;">
+                            How do we compile and compute complex needs data across camps to optimize supplies distribution, while ensuring that the data cannot be reverse-engineered to identify individuals?
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="slide">
+                <span class="slide-subtitle">The Solution</span>
+                <h2 class="slide-title">AegisAid Architecture</h2>
+                <div class="slide-grid">
+                    <ul class="bullets-list">
+                        <li><strong>k-Anonymity (Group Safety)</strong>: Aggregates records into classes of size $\ge 15$, suppressing unique cohorts to prevent linkage attacks.</li>
+                        <li><strong>Differential Privacy (Laplace Blurring)</strong>: Adds calibrated noise based on mathematical bounds, blocking reconstruction queries.</li>
+                        <li><strong>Decentralized Sandbox</strong>: Offline-first compilation ensures raw data stays on local devices, avoiding centralized leak vectors.</li>
+                    </ul>
+                    <div class="card" style="text-align: center; border-color: var(--primary);">
+                        <span style="font-size: 40px;">🛡️</span>
+                        <h4 style="margin: 10px 0;">Do-No-Harm Core</h4>
+                        <p style="font-size: 13px; color: var(--text-muted);">
+                            Moving from paper-based assessments to AI analytics with privacy proven mathematically, not just claimed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4 -->
+            <div class="slide">
+                <span class="slide-subtitle">Mathematical Proofs</span>
+                <h2 class="slide-title">DP & k-Anonymity Engine</h2>
+                <p class="slide-text">
+                    By implementing <span class="highlight-text">Local Differential Privacy (LDP)</span> using a Laplace mechanism, query outcomes are statistically blurred.
+                </p>
+                <div class="card" style="font-family: monospace; font-size: 15px; color: #818cf8; background: #0b0c10;">
+                    Reported_Sum = Actual_Sum + Laplace(Scale = Sensitivity / Epsilon)
+                </div>
+                <p class="slide-text" style="font-size: 15px; margin-top: 20px; color: var(--text-muted);">
+                    When combined with a $k$-Anonymity constraint ($k=15$), linkage attack algorithms score **0% re-identification rate**, rendering data completely secure even under state surveillance.
+                </p>
+            </div>
+
+            <!-- SLIDE 5 -->
+            <div class="slide">
+                <span class="slide-subtitle">Ethical Allocation</span>
+                <h2 class="slide-title">Fairness-Constrained Optimizer</h2>
+                <div class="slide-grid">
+                    <div>
+                        <p class="slide-text">
+                            Pure utility algorithms allocate resources only to regions that yield the highest numerical output, often under-serving minority subgroups.
+                        </p>
+                        <p class="slide-text" style="font-size: 16px;">
+                            We introduce a <span class="highlight-text">Fairness parameter (α)</span> to balance proportional need-based allocation with egalitarian distributions.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-bottom: 8px;">Guaranteed Support</h4>
+                        <p style="font-size: 13px; line-height: 1.5; color: var(--text-muted);">
+                            Ensures Camp Alpha (food crisis), Camp Beta (infrastructure collapse), and Camp Gamma (health outbreak) receive equitable support irrespective of camp demographic size.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6 -->
+            <div class="slide">
+                <span class="slide-subtitle">Inclusivity</span>
+                <h2 class="slide-title">Low-Literacy Consent UI</h2>
+                <p class="slide-text">
+                    Refugee camps host vulnerable populations with varying literacy levels. Traditional terms of service are unethical and ineffective.
+                </p>
+                <ul class="bullets-list">
+                    <li><strong>Audio Guided Explanations</strong>: Multi-lingual voice assistance (Somali, Arabic, French, English).</li>
+                    <li><strong>Pictographic representation</strong>: Metaphors detailing data aggregation and privacy boundaries.</li>
+                    <li><strong>Dignity in Refusal</strong>: Opt-out records default to standard support baskets without penalization.</li>
+                </ul>
+            </div>
+
+            <!-- SLIDE 7 -->
+            <div class="slide">
+                <span class="slide-subtitle">Summary & Impact</span>
+                <h2 class="slide-title">Advancing the UN SDGs</h2>
+                <div class="slide-grid">
+                    <div>
+                        <p class="slide-text" style="font-size: 16px;">
+                            AegisAid proves that advanced data analytics can support the displaced while respecting fundamental human rights.
+                        </p>
+                        <div style="font-size: 14px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <div style="border-left: 2px solid #ef5350; padding-left: 8px;"><strong>SDG 1</strong>: No Poverty</div>
+                            <div style="border-left: 2px solid #ffb74d; padding-left: 8px;"><strong>SDG 2</strong>: Zero Hunger</div>
+                            <div style="border-left: 2px solid #81c784; padding-left: 8px;"><strong>SDG 3</strong>: Good Health</div>
+                            <div style="border-left: 2px solid #ff8a65; padding-left: 8px;"><strong>SDG 10</strong>: Reduced Inequality</div>
+                        </div>
+                    </div>
+                    <div class="card" style="border-color: var(--secondary);">
+                        <h4 style="color: var(--secondary); margin-bottom: 8px;">Technical Scorecard</h4>
+                        <p style="font-size: 13px; color: var(--text-muted);">
+                            ✓ 100% Offline Capable<br>
+                            ✓ Mathematical DP Blurring<br>
+                            ✓ k-Anonymity Suppression<br>
+                            ✓ Epidemic Early Warning alerts
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls footer -->
+        <div class="slide-controls">
+            <button class="nav-btn" id="prev-btn" disabled>Back</button>
+            <div class="slide-progress" id="progress-container">
+                <!-- Progress dots dynamically filled by JS -->
+            </div>
+            <button class="nav-btn" id="next-btn">Next</button>
+        </div>
+
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const progressContainer = document.getElementById("progress-container");
+        
+        let currentSlide = 0;
+
+        // Initialize progress dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement("div");
+            dot.className = `progress-dot ${index === 0 ? 'active' : ''}`;
+            dot.addEventListener("click", () => goToSlide(index));
+            progressContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll(".progress-dot");
+
+        function updateControls() {
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) dot.classList.add("active");
+                else dot.classList.remove("active");
+            });
+        }
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove("active");
+            currentSlide = index;
+            slides[currentSlide].classList.add("active");
+            updateControls();
+        }
+
+        prevBtn.addEventListener("click", () => {
+            if (currentSlide > 0) goToSlide(currentSlide - 1);
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1);
+        });
+
+        // Key listeners
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") {
+                if (currentSlide < slides.length - 1) goToSlide(currentSlide + 1);
+            } else if (e.key === "ArrowLeft") {
+                if (currentSlide > 0) goToSlide(currentSlide - 1);
+            }
+        });
+    </script>
+</body>
+</html>

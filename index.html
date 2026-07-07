@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisAid - Privacy-Safe Humanitarian Resource AI</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">
+                    <h1>AegisAid</h1>
+                    <span>Humanitarian AI</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#overview" class="nav-item active" id="btn-overview">
+                    <span class="icon">📊</span> Overview
+                </a>
+                <a href="#privacy-engine" class="nav-item" id="btn-privacy">
+                    <span class="icon">🔒</span> Privacy Engine
+                </a>
+                <a href="#allocation" class="nav-item" id="btn-allocation">
+                    <span class="icon">⚖️</span> Fair Allocation
+                </a>
+                <a href="#risk-tester" class="nav-item" id="btn-risk">
+                    <span class="icon">⚡</span> Risk Tester
+                </a>
+                <a href="#consent" class="nav-item" id="btn-consent">
+                    <span class="icon">🤝</span> Literacy Consent
+                </a>
+                <a href="#early-warning" class="nav-item" id="btn-warning">
+                    <span class="icon">🚨</span> Early Warning
+                </a>
+            </nav>
+            
+            <!-- Connection Mode -->
+            <div class="system-status">
+                <div class="status-toggle">
+                    <span>Offline Compute Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="offline-toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="status-indicator">
+                    <span class="dot green"></span>
+                    <span id="status-text">Running Offline (Local WASM/JS)</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="welcome-text">
+                    <h2>Humanitarian AI Portal</h2>
+                    <p>Securing vulnerable populations with zero-identifiability AI analytics.</p>
+                </div>
+                <div class="header-badges">
+                    <span class="badge sdg-1">SDG 1 No Poverty</span>
+                    <span class="badge sdg-2">SDG 2 Zero Hunger</span>
+                    <span class="badge sdg-3">SDG 3 Good Health</span>
+                    <span class="badge sdg-10">SDG 10 Reduced Inequality</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Sections -->
+            <div class="content-wrapper">
+                
+                <!-- SECTION 1: OVERVIEW -->
+                <section id="overview" class="dashboard-section active">
+                    <div class="section-header">
+                        <h3>Camps Overview</h3>
+                        <p>Aggregated statistics from Camp Alpha, Camp Beta, and Camp Gamma.</p>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <h4>Total Population</h4>
+                                <p class="stat-number" id="overview-pop">120,000</p>
+                                <span class="stat-sub">Across 3 camps</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-info">
+                                <h4>Sample Base</h4>
+                                <p class="stat-number" id="overview-samples">10,000</p>
+                                <span class="stat-sub">Active households</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">❤️</div>
+                            <div class="stat-info">
+                                <h4>Chronic Illness Rate</h4>
+                                <p class="stat-number" id="overview-illness">26.3%</p>
+                                <span class="stat-sub">Aggregated cohort</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-info">
+                                <h4>Allocation Budget</h4>
+                                <p class="stat-number" id="overview-budget">1,500 kits</p>
+                                <span class="stat-sub">Available aid</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="grid-2col">
+                        <div class="chart-container card">
+                            <h4>Demographics Cohorts (Aggregated)</h4>
+                            <div class="chart-wrapper">
+                                <canvas id="demographicsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-container card">
+                            <h4>Need Distributions (Raw vs Privatized)</h4>
+                            <div class="chart-wrapper">
+                                <canvas id="overviewNeedChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: PRIVACY ENGINE -->
+                <section id="privacy-engine" class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Differential Privacy & k-Anonymity Engine</h3>
+                        <p>Adjust variables to control the trade-off between statistical accuracy and refugee safety.</p>
+                    </div>
+                    
+                    <div class="grid-2col">
+                        <!-- Privacy Controls -->
+                        <div class="card control-card">
+                            <h4>Adjust Privacy Thresholds</h4>
+                            
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>Differential Privacy (ε - Epsilon)</span>
+                                    <span class="value-display" id="val-epsilon">0.5</span>
+                                </div>
+                                <p class="control-description">
+                                    Lower Epsilon adds more noise, providing stronger privacy. Higher values represent better utility but leak details.
+                                </p>
+                                <input type="range" id="slider-epsilon" min="0.05" max="3.0" step="0.05" value="0.5">
+                                <div class="slider-ticks">
+                                    <span>Max Privacy (0.05)</span>
+                                    <span>Low Privacy (3.0)</span>
+                                </div>
+                            </div>
+
+                            <hr class="separator">
+
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>k-Anonymity Threshold (k)</span>
+                                    <span class="value-display" id="val-kanonymity">15</span>
+                                </div>
+                                <p class="control-description">
+                                    Each group must contain at least <i>k</i> individuals. Subgroups smaller than <i>k</i> will be suppressed.
+                                </p>
+                                <input type="range" id="slider-kanonymity" min="2" max="50" step="1" value="15">
+                                <div class="slider-ticks">
+                                    <span>Weak Safety (2)</span>
+                                    <span>Strong Safety (50)</span>
+                                </div>
+                            </div>
+                            
+                            <button id="btn-re-simulate" class="btn primary-btn">Apply Privacy Transform</button>
+                        </div>
+
+                        <!-- Privacy Impact Info -->
+                        <div class="card result-card">
+                            <h4>Anonymization Metrics</h4>
+                            <div class="metrics-grid">
+                                <div class="metric-box">
+                                    <h5>k-Anonymity Status</h5>
+                                    <p class="metric-value green" id="k-status">Satisfied</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h5>Suppressed Records</h5>
+                                    <p class="metric-value red" id="k-suppressed">0.2%</p>
+                                    <span>Low safety group filter</span>
+                                </div>
+                                <div class="metric-box">
+                                    <h5>Added Laplacian Noise</h5>
+                                    <p class="metric-value blue" id="dp-noise">± 2.0</p>
+                                    <span>Scale = Sensitivity / ε</span>
+                                </div>
+                                <div class="metric-box">
+                                    <h5>Data Utility Rating</h5>
+                                    <p class="metric-value orange" id="data-utility">92%</p>
+                                </div>
+                            </div>
+
+                            <hr class="separator">
+
+                            <h4>Epsilon Differential Privacy Noise Simulator</h4>
+                            <p class="text-sm">Clicking query will fetch vulnerability statistics. Notice how values change slightly per query to block tracker correlation.</p>
+                            <div class="query-sandbox">
+                                <button id="btn-query-db" class="btn secondary-btn">Query Camp Alpha Needs (Private)</button>
+                                <div class="query-results">
+                                    <div>Actual: <span id="actual-sum">--</span></div>
+                                    <div>Reported Sum: <strong id="dp-sum" class="text-green">--</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: FAIR RESOURCE ALLOCATION -->
+                <section id="allocation" class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Fairness-Constrained Resource Optimizer</h3>
+                        <p>Balance maximizing total camp utility against guaranteeing equitable shares for highly vulnerable subgroups.</p>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h4>Allocation Optimizer Input</h4>
+                            
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>Total Aid Supplies (Kits/Bags)</span>
+                                    <input type="number" id="input-resources" value="1500" min="100" max="10000">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span>Fairness Parameter (α - Alpha)</span>
+                                    <span class="value-display" id="val-alpha">0.3</span>
+                                </div>
+                                <p class="control-description">
+                                    <b>α = 0</b>: Maximize Utility (allocates based purely on need).<br>
+                                    <b>α = 1</b>: Maximize Equality (allocates equal shares regardless of population/need differences).
+                                </p>
+                                <input type="range" id="slider-alpha" min="0.0" max="1.0" step="0.05" value="0.3">
+                                <div class="slider-ticks">
+                                    <span>Max Utility (0.0)</span>
+                                    <span>Equal Shares (1.0)</span>
+                                </div>
+                            </div>
+                            
+                            <hr class="separator">
+                            
+                            <h4>Mathematical Guarantee</h4>
+                            <p class="formula">
+                                Share<sub>c</sub> = (1 - &alpha;) &times; (Need<sub>c</sub> / TotalNeed) + &alpha; &times; (1 / NumCamps)
+                            </p>
+                            <p class="text-sm">
+                                Prevents host country biases or system optimizations from creating under-served pockets of highly vulnerable displaced persons.
+                            </p>
+                        </div>
+
+                        <div class="card">
+                            <h4>Optimized Resource Allocation Results</h4>
+                            <div class="chart-wrapper">
+                                <canvas id="allocationChart"></canvas>
+                            </div>
+                            <div class="allocation-summary" id="alloc-text-summary">
+                                <!-- Filled by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: RISK TESTER -->
+                <section id="risk-tester" class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Re-Identification Linkage Attack Simulator</h3>
+                        <p>Simulate a hostile actor attempting to de-anonymize the camp dataset by linking it with an leaked/attacker dataset.</p>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h4>Simulation Parameters</h4>
+                            <p class="text-sm">
+                                The attacker holds an external database containing some known attributes of individuals (e.g. age range, gender, camp location). They attempt to link this to our released need indicators.
+                            </p>
+                            
+                            <div class="control-group">
+                                <span>Known Attributes held by Attacker (Quasi-Identifiers)</span>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="chk-camp" checked disabled>
+                                        <span class="checkmark"></span> Camp Location
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="chk-gender" checked>
+                                        <span class="checkmark"></span> Gender of Head
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="chk-age" checked>
+                                        <span class="checkmark"></span> Age Cohort
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button id="btn-run-attack" class="btn danger-btn">Run Linkage Attack Simulation</button>
+                            
+                            <hr class="separator">
+                            
+                            <div class="log-console">
+                                <div class="log-title">Linkage Attack Terminal Log</div>
+                                <div class="log-body" id="attack-logs">
+                                    [SYSTEM] Ready for attack simulation...
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Vulnerability Profile & De-anonymization Rate</h4>
+                            <p class="text-sm">Safety metrics under current privacy rules (Epsilon = <span id="lbl-eps">0.5</span>, k = <span id="lbl-k">15</span>).</p>
+                            
+                            <div class="gauge-container">
+                                <div class="gauge-circle" id="risk-gauge">
+                                    <div class="gauge-inner">
+                                        <span id="risk-percent">0.0%</span>
+                                        <span class="gauge-label">Re-identified</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-note alert-box" id="risk-alert">
+                                <strong>High Security Status:</strong> Robust privacy safeguards successfully prevent attacker from matching individuals with certainty.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: LITERACY CONSENT -->
+                <section id="consent" class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Inclusive & Low-Literacy Consent Mechanism</h3>
+                        <p>Providing meaningful agency to displaced persons with audio indicators and simple visual choices.</p>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card consent-interactive">
+                            <h4>Consent Interface Simulation (Household Survey)</h4>
+                            <p class="text-sm">This shows what is displayed on a tablet to a refugee head-of-household during intake.</p>
+                            
+                            <div class="consent-visual-card">
+                                <div class="audio-banner">
+                                    <button class="audio-btn" id="btn-play-audio">🔊 Listen to Explanation (Multilingual)</button>
+                                    <select id="lang-select">
+                                        <option value="en">English</option>
+                                        <option value="ar">العربية (Arabic)</option>
+                                        <option value="fr">Français (French)</option>
+                                        <option value="so">Soomaali (Somali)</option>
+                                    </select>
+                                </div>
+
+                                <div class="consent-pictograms">
+                                    <div class="picto-box">
+                                        <div class="picto-img">📊</div>
+                                        <p>Data aggregates to get help</p>
+                                    </div>
+                                    <div class="picto-box font-red">
+                                        <div class="picto-img">🔒</div>
+                                        <p>No names or locations stored</p>
+                                    </div>
+                                    <div class="picto-box">
+                                        <div class="picto-img">🤝</div>
+                                        <p>Can opt-out anytime</p>
+                                    </div>
+                                </div>
+
+                                <div class="consent-question">
+                                    Do you consent to share anonymous answers to calculate camp food/shelter needs?
+                                </div>
+
+                                <div class="consent-buttons">
+                                    <button class="btn yes-btn" id="consent-yes">✅ YES (Consented)</button>
+                                    <button class="btn no-btn" id="consent-no">❌ NO (Refused)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Consent Verification & Audits</h4>
+                            <p class="text-sm">Track aggregated consent percentages dynamically to ensure camp workers explain choices properly.</p>
+                            <div class="metrics-grid">
+                                <div class="metric-box">
+                                    <h5>Consent Rate</h5>
+                                    <p class="metric-value green" id="consent-rate">94.8%</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h5>Audit Integrity</h5>
+                                    <p class="metric-value blue">100%</p>
+                                    <span>Verified non-linkable logs</span>
+                                </div>
+                            </div>
+                            <hr class="separator">
+                            <h5>Design Principles</h5>
+                            <ul class="principles-list">
+                                <li><strong>Pictorial Metaphors</strong>: Simplified graphics represent complex legal structures.</li>
+                                <li><strong>Zero-Identification Logs</strong>: Consents are recorded as counts, never mapped to user IDs.</li>
+                                <li><strong>Multilingual Speech</strong>: Speaks aloud choices in the refugee's primary language.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 6: EARLY WARNING -->
+                <section id="early-warning" class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Disease Outbreak & Shortage Early Warning Alert</h3>
+                        <p>Anomaly detection using time-series analysis on aggregated health indicators (e.g., diarrheal incidents).</p>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h4>Epidemiological Monitoring (DP Aggregated)</h4>
+                            <p class="text-sm">Simulation of daily clinic presentations for water-borne symptoms. An alert is raised when count exceeds 3 standard deviations of baseline.</p>
+                            <div class="chart-wrapper">
+                                <canvas id="earlyWarningChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Anomalous Outbreak Flags</h4>
+                            <button id="btn-trigger-outbreak" class="btn danger-btn">Trigger Simulated Epidemic Spike</button>
+                            
+                            <hr class="separator">
+                            
+                            <div class="alert-feed" id="alert-feed-container">
+                                <div class="alert-item warning">
+                                    <div class="alert-time">Today, 14:02</div>
+                                    <div class="alert-msg"><strong>Anomaly Flag (Camp Beta)</strong>: 12% rise in gastro-intestinal reports. Epsilon privacy budget retained.</div>
+                                </div>
+                                <div class="alert-item normal">
+                                    <div class="alert-time">Yesterday, 08:00</div>
+                                    <div class="alert-msg">Camp Alpha clinic levels within normal historical bounds.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+</body>
+</html>

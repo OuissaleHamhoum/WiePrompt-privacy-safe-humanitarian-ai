@@ -1,0 +1,10 @@
+# AegisAid uses ONLY the Python standard library (csv, math, random, os) and
+# vanilla JavaScript in the browser — this file is intentionally empty of
+# packages so judges can run the prototype with a stock Python 3.x install
+# and no "pip install" step, no internet access, and no version drift.
+#
+# If you want to extend the project with real ML (recommended next step —
+# see SUBMISSION_CHECKLIST.md), the natural additions would be:
+# scikit-learn
+# diffprivlib
+# pandas
