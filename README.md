@@ -64,12 +64,6 @@ AegisAid includes Python scripts implementing the raw mathematical algorithms us
     This script verifies $k$-anonymity compliance, applies Laplace noise queries under varying Epsilon constraints, and solves utility-fairness resource allocation.
 
 ---
-
-## 📄 License
-
-Released under the [MIT License](LICENSE) — free to reuse, adapt, and deploy
-for real humanitarian settings.
-
 ## 🔬 Mathematical Specifications
 
 ### Laplace Noise Injection (Differential Privacy)
