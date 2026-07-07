@@ -37,13 +37,6 @@ By combining **k-Anonymity**, **Local Differential Privacy (LDP)**, and **Utilit
     └── synthetic_refugee_data.csv # Generated synthetic dataset (10,000 households)
 ```
 
-> **Reproducibility note**: both scripts now seed Python's RNG (`seed=42`), so
-> every number quoted in this README and in `do_no_harm_assessment.pdf`
-> (e.g. "20 records / 0.2% suppressed at k=15") is exactly reproducible by
-> re-running `synthetic_gen.py` then `privacy_allocation.py` on any machine.
-
----
-
 ## 🚀 How to Run the Solution
 
 ### 1. Interactive Dashboard (Web Prototype)
